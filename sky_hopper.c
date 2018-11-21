@@ -7,8 +7,29 @@
 #include "GL/freeglut.h"
 #include "GL/gl.h"
 
+#include "texture_loader.h"
+
+void render_sky() {
+	GLuint sky_texture_id = TextureLoader_load_bmp("assets/sky_day_1.bmp", false);
+
+    glPushMatrix();
+    glEnable(GL_TEXTURE_2D);
+    GLUquadricObj* sphere = gluNewQuadric();
+    gluQuadricOrientation(sphere, GLU_INSIDE);
+    gluQuadricTexture(sphere, true);
+    gluQuadricNormals(sphere, GLU_SMOOTH);
+    glBindTexture(GL_TEXTURE_2D, sky_texture_id);
+    glEnable(GL_CULL_FACE);
+    gluSphere(sphere, 400, 100, 100);
+    gluDeleteQuadric(sphere);
+    glDisable(GL_TEXTURE_2D);
+    glPopMatrix();
+}
+
 void render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	render_sky();
 
 	glFlush();
 }
@@ -54,7 +75,7 @@ int main(int argc, char *argv[]) {
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-    gluPerspective(20.0f, 1000.0f/1000.0f, 0.1f, 300.0f);
+    gluPerspective(45.0f, 1000.0f/1000.0f, 0.1f, 800.0f);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
