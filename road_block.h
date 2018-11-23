@@ -10,10 +10,10 @@ typedef struct {
 	float y;
 	float z;
 	float original_z;
-	char *texture_path;
+	GLuint texture_id;
 } RoadBlock;
 
-RoadBlock *RoadBlock__create(float y, float z, char *texture_path);
+RoadBlock *RoadBlock__create(float y, float z, GLuint texture_id);
 void RoadBlock__render(RoadBlock *self);
 void RoadBlock__update(RoadBlock *self);
 

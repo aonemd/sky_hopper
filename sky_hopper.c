@@ -10,11 +10,10 @@
 #include "texture_loader.h"
 #include "road_block.h"
 
+GLuint sky_texture_id, asphalt_texture_id;
 RoadBlock *road[9];
 
 void render_sky() {
-	GLuint sky_texture_id = TextureLoader_load_bmp("assets/sky_day_1.bmp", false);
-
     glPushMatrix();
     glEnable(GL_TEXTURE_2D);
     GLUquadricObj* sphere = gluNewQuadric();
@@ -95,10 +94,15 @@ int main(int argc, char *argv[]) {
 	glLoadIdentity();
 	gluLookAt(0.0, 4.0, 15.0, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
+	// load textures
+	sky_texture_id     = TextureLoader_load_bmp("assets/sky_day_1.bmp", false);
+	asphalt_texture_id = TextureLoader_load_bmp("assets/asphalt.bmp", true);
+
+	// initialize the road
 	for (int i = 0; i < 9; i += 3) {
-		road[i + 0] = RoadBlock__create(0 - 2, ((i + 0) * -15) - (2 * i), "assets/asphalt.bmp");
-		road[i + 1] = RoadBlock__create(0 - 2, ((i + 1) * -15) - (2 * i), "assets/asphalt.bmp");
-		road[i + 2] = RoadBlock__create(0 - 2, ((i + 2) * -15) - (2 * i), "assets/asphalt.bmp");
+		road[i + 0] = RoadBlock__create(0 - 2, ((i + 0) * -15) - (2 * i), asphalt_texture_id);
+		road[i + 1] = RoadBlock__create(0 - 2, ((i + 1) * -15) - (2 * i), asphalt_texture_id);
+		road[i + 2] = RoadBlock__create(0 - 2, ((i + 2) * -15) - (2 * i), asphalt_texture_id);
 	}
 
 	glutMainLoop();
