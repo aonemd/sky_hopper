@@ -49,6 +49,8 @@ void update() {
 		RoadBlock__update(road[i]);
 	}
 
+	Character__update(character);
+
 	glutPostRedisplay();
 }
 
@@ -66,6 +68,9 @@ void handle_keyboard(unsigned char key, int mouse_x, int mouse_y) {
 		case 27:
 		case 'q':
 			exit(0);
+		case ' ':
+			Character__jump_up(character);
+			break;
 	}
 }
 
