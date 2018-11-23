@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-#include "texture_loader.h"
+#include "GL/freeglut.h"
 
 typedef struct {
 	float x;
