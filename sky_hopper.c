@@ -8,6 +8,9 @@
 #include "GL/gl.h"
 
 #include "texture_loader.h"
+#include "road_block.h"
+
+RoadBlock *road[9];
 
 void render_sky() {
 	GLuint sky_texture_id = TextureLoader_load_bmp("assets/sky_day_1.bmp", false);
@@ -31,10 +34,21 @@ void render() {
 
 	render_sky();
 
+	for (int i = 0; i < 9; i++) {
+		RoadBlock__render(road[i]);
+	}
+
+	glColor3f(1, 0, 0);
+	glutSolidCube(1.0);
+
 	glFlush();
 }
 
 void update() {
+	for (int i = 0; i < 9; i++) {
+		RoadBlock__update(road[i]);
+	}
+
 	glutPostRedisplay();
 }
 
@@ -80,6 +94,12 @@ int main(int argc, char *argv[]) {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(0.0, 4.0, 15.0, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+
+	for (int i = 0; i < 9; i += 3) {
+		road[i + 0] = RoadBlock__create(0 - 2, ((i + 0) * -15) - (2 * i), "assets/asphalt.bmp");
+		road[i + 1] = RoadBlock__create(0 - 2, ((i + 1) * -15) - (2 * i), "assets/asphalt.bmp");
+		road[i + 2] = RoadBlock__create(0 - 2, ((i + 2) * -15) - (2 * i), "assets/asphalt.bmp");
+	}
 
 	glutMainLoop();
 
