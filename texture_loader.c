@@ -1,6 +1,6 @@
 #include "texture_loader.h"
 
-GLuint TextureLoader_load_bmp(const char *filename, int wrap) {
+GLuint TextureLoader__load_bmp(const char *filename, int wrap) {
 	GLuint texture_id;
 	long i;
 	char temp;
@@ -66,7 +66,7 @@ GLuint TextureLoader_load_bmp(const char *filename, int wrap) {
 	return texture_id;
 }
 
-GLuint TextureLoader_load_ppm(const char *filename, int width, int height, int wrap) {
+GLuint TextureLoader__load_ppm(const char *filename, int width, int height, int wrap) {
 	GLuint texture_id;
 	Byte *data;
 	FILE *file;
@@ -93,4 +93,3 @@ GLuint TextureLoader_load_ppm(const char *filename, int width, int height, int w
 
 	return texture_id;
 }
-

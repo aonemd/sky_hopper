@@ -95,8 +95,8 @@ int main(int argc, char *argv[]) {
 	gluLookAt(0.0, 4.0, 15.0, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
 	// load textures
-	sky_texture_id     = TextureLoader_load_bmp("assets/sky_day_1.bmp", false);
-	asphalt_texture_id = TextureLoader_load_bmp("assets/asphalt.bmp", true);
+	sky_texture_id     = TextureLoader__load_bmp("assets/sky_day_1.bmp", false);
+	asphalt_texture_id = TextureLoader__load_bmp("assets/asphalt.bmp", true);
 
 	// initialize the road
 	for (int i = 0; i < 9; i += 3) {

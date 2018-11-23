@@ -14,7 +14,7 @@ typedef struct {
 	unsigned char *data;
 } BitMapInfoHeader;
 
-GLuint TextureLoader_load_bmp(const char *filename, int wrap);
-GLuint TextureLoader_load_ppm(const char *filename, int width, int height, int wrap);
+GLuint TextureLoader__load_bmp(const char *filename, int wrap);
+GLuint TextureLoader__load_ppm(const char *filename, int width, int height, int wrap);
 
 #endif
