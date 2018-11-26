@@ -35,7 +35,7 @@ void Character__update(Character *self) {
 	self->y += self->y_velocity;
 	self->x += self->x_velocity;
 
-	Character__move_down(self);
+	_move_down(self);
 	_stop_horizontal_movement(self);
 }
 
@@ -46,7 +46,7 @@ void Character__jump_up(Character *self) {
 	}
 }
 
-void Character__move_down(Character *self) {
+void _move_down(Character *self) {
 	if (self->y <= 0) {
 		self->y_velocity = 0;
 		self->is_jumping = false;
