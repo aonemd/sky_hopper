@@ -21,8 +21,8 @@ void Character__render(Character *self);
 void Character__update(Character *self);
 void Character__jump_up(Character *self);
 void _move_down(Character *self);
-void Character__move_right(Character *self, int deltaTime);
-void Character__move_left(Character *self, int deltaTime);
+void Character__move_right(Character *self);
+void Character__move_left(Character *self);
 void _stop_horizontal_movement(Character *self);
 
 #endif

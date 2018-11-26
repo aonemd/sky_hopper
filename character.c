@@ -59,12 +59,12 @@ void _move_down(Character *self) {
 	}
 }
 
-void Character__move_right(Character *self, int deltaTime) {
-	self->x_velocity = pow(0.2, deltaTime);
+void Character__move_right(Character *self) {
+	self->x_velocity = 0.1 * cos(10 * M_PI / 180.0);
 }
 
-void Character__move_left(Character *self, int deltaTime) {
-	self->x_velocity = -1 * pow(0.2, deltaTime);
+void Character__move_left(Character *self) {
+	self->x_velocity = -1 * 0.1 * cos(10 * M_PI / 180.0);
 }
 
 void _stop_horizontal_movement(Character *self) {
