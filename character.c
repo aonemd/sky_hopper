@@ -13,12 +13,20 @@ Character *Character__create() {
 }
 
 void Character__render(Character *self) {
-	(void) self;
+	glPushMatrix();
+	glTranslated(self->x, self->y, self->z);
+	glColor3f(0, 0.13725490196078433, 0.42745098039215684);
 
 	glPushMatrix();
-	glColor3f(1, 0, 0);
-	glTranslated(self->x, self->y, self->z);
+	glScaled(1, 1.3, 1);
 	glutSolidCube(1.0);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(0, 1.1, 0);
+	glutSolidSphere(0.5, 100, 100);
+	glPopMatrix();
+
 	glPopMatrix();
 }
 
