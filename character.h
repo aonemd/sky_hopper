@@ -1,7 +1,6 @@
 #ifndef _character_h_
 #define _character_h_
 
-#include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
 
