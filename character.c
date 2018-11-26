@@ -6,6 +6,7 @@ Character *Character__create() {
 	character->x          = 0;
 	character->y          = 0;
 	character->z          = 0;
+	character->x_velocity = 0;
 	character->y_velocity = 0;
 	character->is_jumping = false;
 
@@ -32,8 +33,10 @@ void Character__render(Character *self) {
 
 void Character__update(Character *self) {
 	self->y += self->y_velocity;
+	self->x += self->x_velocity;
 
 	Character__move_down(self);
+	_stop_horizontal_movement(self);
 }
 
 void Character__jump_up(Character *self) {
@@ -53,5 +56,19 @@ void Character__move_down(Character *self) {
 	if (self->y >= 5) {
 		self->y_velocity -= 0.04f;
 		self->is_jumping  = false;
+	}
+}
+
+void Character__move_right(Character *self, int deltaTime) {
+	self->x_velocity = pow(0.2, deltaTime);
+}
+
+void Character__move_left(Character *self, int deltaTime) {
+	self->x_velocity = -1 * pow(0.2, deltaTime);
+}
+
+void _stop_horizontal_movement(Character *self) {
+	if (self->x > 2 || self->x < -2) {
+		self->x_velocity = 0;
 	}
 }

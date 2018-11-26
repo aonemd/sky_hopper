@@ -11,6 +11,9 @@
 #include "road_block.h"
 #include "character.h"
 
+int oldTimeSinceStart = 0;
+int deltaTime;
+
 GLuint sky_texture_id, asphalt_texture_id;
 RoadBlock *road[9];
 Character *character;
@@ -45,6 +48,10 @@ void render() {
 }
 
 void update() {
+	int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
+	deltaTime          = timeSinceStart - oldTimeSinceStart;
+	oldTimeSinceStart  = timeSinceStart;
+
 	for (int i = 0; i < 9; i++) {
 		RoadBlock__update(road[i]);
 	}
@@ -70,6 +77,12 @@ void handle_keyboard(unsigned char key, int mouse_x, int mouse_y) {
 			exit(0);
 		case ' ':
 			Character__jump_up(character);
+			break;
+		case 'd':
+			Character__move_right(character, deltaTime);
+			break;
+		case 'a':
+			Character__move_left(character, deltaTime);
 			break;
 	}
 }
