@@ -34,6 +34,7 @@ void Character__render(Character *self) {
 void Character__update(Character *self) {
 	self->y += self->y_velocity;
 	self->x += self->x_velocity;
+	self->z -= self->y_velocity;
 
 	_move_down(self);
 	_stop_horizontal_movement(self);
@@ -42,6 +43,7 @@ void Character__update(Character *self) {
 void Character__jump_up(Character *self) {
 	if (!self->is_jumping) {
 		self->y_velocity = 0.04f;
+		self->z_velocity = 0.04f;
 		self->is_jumping = true;
 	}
 }

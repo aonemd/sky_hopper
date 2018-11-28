@@ -12,6 +12,7 @@ typedef struct {
 	float z;
 	float x_velocity;
 	float y_velocity;
+	float z_velocity;
 	bool is_jumping;
 } Character;
 
