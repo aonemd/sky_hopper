@@ -8,13 +8,14 @@
 #include "GL/gl.h"
 
 #include "texture_loader.h"
+#include "road.h"
 #include "road_block.h"
 #include "character.h"
 
 int oldTimeSinceStart = 0;
 
 GLuint sky_texture_id, asphalt_texture_id;
-RoadBlock *road[9];
+Road *road;
 Character *character;
 
 void render_sky() {
@@ -37,20 +38,14 @@ void render() {
 
 	render_sky();
 
-	for (int i = 0; i < 9; i++) {
-		RoadBlock__render(road[i]);
-	}
-
+	Road__render(road);
 	Character__render(character);
 
 	glFlush();
 }
 
 void update() {
-	for (int i = 0; i < 9; i++) {
-		RoadBlock__update(road[i]);
-	}
-
+	Road__update(road);
 	Character__update(character);
 
 	glutPostRedisplay();
@@ -113,11 +108,7 @@ int main(int argc, char *argv[]) {
 	asphalt_texture_id = TextureLoader__load_bmp("assets/asphalt.bmp", true);
 
 	// initialize the road
-	for (int i = 0; i < 9; i += 3) {
-		road[i + 0] = RoadBlock__create(0 - 2, ((i + 0) * -15) - (2 * i), asphalt_texture_id);
-		road[i + 1] = RoadBlock__create(0 - 2, ((i + 1) * -15) - (2 * i), asphalt_texture_id);
-		road[i + 2] = RoadBlock__create(0 - 2, ((i + 2) * -15) - (2 * i), asphalt_texture_id);
-	}
+	road = Road__create(asphalt_texture_id);
 
 	// initialize the main character
 	character = Character__create();
