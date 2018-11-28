@@ -17,7 +17,7 @@ void RoadBlock__render(RoadBlock *self) {
 	glTranslated(self->x, self->y, self->z);
 
 	glPushMatrix();
-	glScaled(8.0f, 0.1f, 15);
+	glScaled(8.0f, 0.1f, BLOCK_LENGTH);
 
 	glColor3f(0, 0, 1);
 	glEnable(GL_TEXTURE_2D);
