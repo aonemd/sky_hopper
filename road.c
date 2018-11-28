@@ -5,10 +5,8 @@ Road *Road__create(GLuint texture_id) {
 
 	road->texture_id = texture_id;
 
-	for (int i = 0; i < NUMBER_OF_ROADS; i += 3) {
+	for (int i = 0; i < NUMBER_OF_ROADS; i++) {
 		road->blocks[i + 0] = RoadBlock__create(0 - 2, ((i + 0) * -15) - (2 * i), road->texture_id);
-		road->blocks[i + 1] = RoadBlock__create(0 - 2, ((i + 1) * -15) - (2 * i), road->texture_id);
-		road->blocks[i + 2] = RoadBlock__create(0 - 2, ((i + 2) * -15) - (2 * i), road->texture_id);
 	}
 
 	return road;
