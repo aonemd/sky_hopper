@@ -79,8 +79,4 @@ void RoadBlock__render(RoadBlock *self) {
 
 void RoadBlock__update(RoadBlock *self) {
 	self->z += 0.07;
-
-	if (self->z >= 45) {
-		self->z = self->original_z;
-	}
 }

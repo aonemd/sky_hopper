@@ -8,7 +8,8 @@
 
 typedef struct Road {
 	RoadBlock *blocks[NUMBER_OF_ROADS];
-	GLuint texture_id;
+	int       farthest_road_index;
+	GLuint    texture_id;
 } Road;
 
 Road *Road__create(GLuint texture_id);

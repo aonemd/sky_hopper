@@ -3,10 +3,11 @@
 Road *Road__create(GLuint texture_id) {
 	Road *road = malloc(sizeof(*road));
 
-	road->texture_id = texture_id;
+	road->farthest_road_index = 0;
+	road->texture_id          = texture_id;
 
 	for (int i = 0; i < NUMBER_OF_ROADS; i++) {
-		road->blocks[i + 0] = RoadBlock__create(0 - 2, ((i + 0) * -15) - (2 * i), road->texture_id);
+		road->blocks[i + 0] = RoadBlock__create(0 - 2, ((i + 0) * -1 * BLOCK_LENGTH) - (2 * i), road->texture_id);
 	}
 
 	return road;
@@ -21,5 +22,17 @@ void Road__render(Road *road) {
 void Road__update(Road *road) {
 	for (int i = 0; i < NUMBER_OF_ROADS; i++) {
 		RoadBlock__update(road->blocks[i]);
+	}
+
+	int farthest_road_index = road->farthest_road_index;
+	if(road->blocks[farthest_road_index]->z >= (NUMBER_OF_ROADS / 2.0) * BLOCK_LENGTH) {
+		int next_road_index = (farthest_road_index + NUMBER_OF_ROADS - 1) % NUMBER_OF_ROADS;
+
+		road->blocks[farthest_road_index]->z = road->blocks[next_road_index]->z - BLOCK_LENGTH - (2 * farthest_road_index);
+		road->farthest_road_index            = (farthest_road_index + 1) % NUMBER_OF_ROADS;
+
+		if(farthest_road_index < 0) {
+			road->farthest_road_index = NUMBER_OF_ROADS-1;
+		}
 	}
 }
