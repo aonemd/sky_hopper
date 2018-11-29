@@ -5,6 +5,7 @@
 #include "road_block.h"
 
 #define NUMBER_OF_ROADS 9
+#define ROAD_GAP_LENGTH 4
 
 typedef struct Road {
 	RoadBlock *blocks[NUMBER_OF_ROADS];

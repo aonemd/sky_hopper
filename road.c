@@ -28,7 +28,7 @@ void Road__update(Road *road) {
 	if(road->blocks[farthest_road_index]->z >= (NUMBER_OF_ROADS / 2.0) * BLOCK_LENGTH) {
 		int next_road_index = (farthest_road_index + NUMBER_OF_ROADS - 1) % NUMBER_OF_ROADS;
 
-		road->blocks[farthest_road_index]->z = road->blocks[next_road_index]->z - BLOCK_LENGTH - (2 * farthest_road_index);
+		road->blocks[farthest_road_index]->z = road->blocks[next_road_index]->z - BLOCK_LENGTH - ROAD_GAP_LENGTH;
 		road->farthest_road_index            = (farthest_road_index + 1) % NUMBER_OF_ROADS;
 
 		if(farthest_road_index < 0) {
