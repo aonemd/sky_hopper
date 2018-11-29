@@ -12,7 +12,7 @@
 #include "road_block.h"
 #include "character.h"
 
-int oldTimeSinceStart = 0;
+bool pause_scene = false;
 
 GLuint sky_texture_id, asphalt_texture_id;
 Road *road;
@@ -45,6 +45,10 @@ void render() {
 }
 
 void update() {
+	if (pause_scene) {
+		return;
+	}
+
 	Road__update(road);
 	Character__update(character);
 
@@ -73,6 +77,9 @@ void handle_keyboard(unsigned char key, int mouse_x, int mouse_y) {
 			break;
 		case 'a':
 			Character__move_left(character);
+			break;
+		case 'p':
+			pause_scene = !pause_scene;
 			break;
 	}
 }
