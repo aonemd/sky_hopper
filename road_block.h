@@ -5,7 +5,7 @@
 
 #include "GL/freeglut.h"
 
-#define BLOCK_LENGTH 20
+#define BLOCK_LENGTH 30
 
 typedef struct {
 	float x;
