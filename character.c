@@ -35,9 +35,8 @@ void Character__render(Character *self) {
 void Character__update(Character *self) {
 	self->y += self->y_velocity;
 	self->x += self->x_velocity;
-	self->z -= self->y_velocity;
 
-	_move_down(self);
+	_pull_down(self);
 	_stop_horizontal_movement(self);
 }
 
@@ -49,30 +48,28 @@ void Character__jump_up(Character *self) {
 	}
 }
 
-void _move_down(Character *self) {
-	if (!self->is_falling && !self->is_jumping) {
-		self->y_velocity = 0;
-		self->y			 = 0;
-	} else if (self->is_jumping) {
-		if (self->y >= 5) {
-			self->y_velocity -= 0.04f;
-			self->is_jumping  = false;
-
-			if (self->y <= 0) {
-				self->y_velocity = 0;
-			}
-		}
-	} else {
-		self->y_velocity -= 0.004;
-	}
-}
-
 void Character__move_right(Character *self) {
 	self->x_velocity = 0.1 * cos(10 * M_PI / 180.0);
 }
 
 void Character__move_left(Character *self) {
 	self->x_velocity = -1 * 0.1 * cos(10 * M_PI / 180.0);
+}
+
+void _pull_down(Character *self) {
+	if (!self->is_falling && !self->is_jumping) {
+		self->y_velocity = 0;
+		self->y			 = 0;
+	} else if (self->is_jumping) {
+		if (self->y >= 5) {
+			self->y_velocity -= 0.004f;
+		} else if (self->y <= 0) {
+			self->y_velocity = 1;
+			self->is_jumping = false;
+		}
+	} else if (self->is_falling) {
+		self->y_velocity -= 0.004;
+	}
 }
 
 void _stop_horizontal_movement(Character *self) {
