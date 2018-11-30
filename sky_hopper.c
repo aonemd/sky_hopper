@@ -8,13 +8,14 @@
 #include "GL/gl.h"
 
 #include "texture_loader.h"
+#include "camera.h"
 #include "road.h"
-#include "road_block.h"
 #include "character.h"
 
 bool pause_scene = false;
 
 GLuint sky_texture_id, asphalt_texture_id;
+Camera *camera;
 Road *road;
 Character *character;
 
@@ -36,8 +37,8 @@ void render_sky() {
 void render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	Camera__render(camera);
 	render_sky();
-
 	Road__render(road);
 	Character__render(character);
 
@@ -85,6 +86,9 @@ void handle_keyboard(unsigned char key, int mouse_x, int mouse_y) {
 		case 'p':
 			pause_scene = !pause_scene;
 			break;
+		case 'v':
+			Camera__toggle_top_view(camera);
+			break;
 	}
 }
 
@@ -110,18 +114,12 @@ int main(int argc, char *argv[]) {
 	glLoadIdentity();
     gluPerspective(45.0f, 1000.0f/1000.0f, 0.1f, 800.0f);
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluLookAt(0.0, 4.0, 15.0, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
-
 	// load textures
 	sky_texture_id     = TextureLoader__load_bmp("assets/sky_day_1.bmp", false);
 	asphalt_texture_id = TextureLoader__load_bmp("assets/asphalt.bmp", true);
 
-	// initialize the road
-	road = Road__create(asphalt_texture_id);
-
-	// initialize the main character
+	camera    = Camera__create();
+	road      = Road__create(asphalt_texture_id);
 	character = Character__create();
 
 	glutMainLoop();
