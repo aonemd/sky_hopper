@@ -9,6 +9,7 @@
 
 #include "texture_loader.h"
 #include "camera.h"
+#include "sky.h"
 #include "road.h"
 #include "character.h"
 
@@ -19,26 +20,11 @@ Camera *camera;
 Road *road;
 Character *character;
 
-void render_sky() {
-    glPushMatrix();
-    glEnable(GL_TEXTURE_2D);
-    GLUquadricObj* sphere = gluNewQuadric();
-    gluQuadricOrientation(sphere, GLU_INSIDE);
-    gluQuadricTexture(sphere, true);
-    gluQuadricNormals(sphere, GLU_SMOOTH);
-    glBindTexture(GL_TEXTURE_2D, sky_texture_id);
-    glEnable(GL_CULL_FACE);
-    gluSphere(sphere, 400, 100, 100);
-    gluDeleteQuadric(sphere);
-    glDisable(GL_TEXTURE_2D);
-    glPopMatrix();
-}
-
 void render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Camera__render(camera);
-	render_sky();
+	Sky__render(sky_texture_id);
 	Road__render(road);
 	Character__render(character);
 
