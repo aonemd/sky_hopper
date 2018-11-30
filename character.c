@@ -9,6 +9,7 @@ Character *Character__create() {
 	character->x_velocity = 0;
 	character->y_velocity = 0;
 	character->is_jumping = false;
+	character->is_falling = false;
 
 	return character;
 }
@@ -49,15 +50,20 @@ void Character__jump_up(Character *self) {
 }
 
 void _move_down(Character *self) {
-	if (self->y <= 0) {
+	if (!self->is_falling && !self->is_jumping) {
 		self->y_velocity = 0;
-		self->is_jumping = false;
-		return;
-	}
+		self->y			 = 0;
+	} else if (self->is_jumping) {
+		if (self->y >= 5) {
+			self->y_velocity -= 0.04f;
+			self->is_jumping  = false;
 
-	if (self->y >= 5) {
-		self->y_velocity -= 0.04f;
-		self->is_jumping  = false;
+			if (self->y <= 0) {
+				self->y_velocity = 0;
+			}
+		}
+	} else {
+		self->y_velocity -= 0.004;
 	}
 }
 

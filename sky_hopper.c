@@ -52,6 +52,10 @@ void update() {
 	Road__update(road);
 	Character__update(character);
 
+	if (Road__character_intersects_gap(road, character)) {
+		character->is_falling = true;
+	}
+
 	glutPostRedisplay();
 }
 

@@ -32,3 +32,20 @@ void Road__update(Road *road) {
 		road->farthest_road_index            = (farthest_road_index + 1) % NUMBER_OF_ROADS;
 	}
 }
+
+bool Road__character_intersects_gap(Road *road, Character *character) {
+	int minimum_z_index = 0;
+	for (int i = 0; i < NUMBER_OF_ROADS; i++) {
+		if (road->blocks[i]->z >= 0) {
+			if (road->blocks[i]->z < road->blocks[minimum_z_index]->z) {
+				minimum_z_index = i;
+			}
+		}
+	}
+
+	if ((road->blocks[minimum_z_index]->z > 11 && road->blocks[minimum_z_index]->z <= 15) && character->y == 0) {
+		return true;
+	}
+
+	return false;
+}

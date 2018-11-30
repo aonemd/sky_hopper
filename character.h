@@ -14,6 +14,7 @@ typedef struct {
 	float y_velocity;
 	float z_velocity;
 	bool is_jumping;
+	bool is_falling;
 } Character;
 
 Character *Character__create();
