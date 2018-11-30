@@ -43,7 +43,7 @@ bool Road__character_intersects_gap(Road *road, Character *character) {
 		}
 	}
 
-	if ((road->blocks[minimum_z_index]->z > 11 && road->blocks[minimum_z_index]->z <= 15) && character->y == 0) {
+	if ((road->blocks[minimum_z_index]->z > 15.7f && road->blocks[minimum_z_index]->z <= 18) && character->y <= 0) {
 		return true;
 	}
 
