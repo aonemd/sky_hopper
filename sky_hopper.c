@@ -11,13 +11,15 @@
 #include "camera.h"
 #include "sky.h"
 #include "road.h"
+#include "blockade.h"
 #include "character.h"
 
 bool pause_scene = false;
 
-GLuint sky_texture_id, asphalt_texture_id;
+GLuint sky_texture_id, asphalt_texture_id, brick_texture_id;
 Camera *camera;
 Road *road;
+Blockade *blockade;
 Character *character;
 
 void render() {
@@ -26,6 +28,7 @@ void render() {
 	Camera__render(camera);
 	Sky__render(sky_texture_id);
 	Road__render(road);
+	Blockade__render(blockade);
 	Character__render(character);
 
 	glFlush();
@@ -37,6 +40,7 @@ void update() {
 	}
 
 	Road__update(road);
+	Blockade__update(blockade);
 	Character__update(character);
 
 	if (Road__character_intersects_gap(road, character)) {
@@ -103,9 +107,11 @@ int main(int argc, char *argv[]) {
 	// load textures
 	sky_texture_id     = TextureLoader__load_bmp("assets/sky_day_1.bmp", false);
 	asphalt_texture_id = TextureLoader__load_bmp("assets/asphalt.bmp", true);
+	brick_texture_id   = TextureLoader__load_bmp("assets/brick.bmp", true);
 
 	camera    = Camera__create();
 	road      = Road__create(asphalt_texture_id);
+	blockade  = Blockade__create(brick_texture_id);
 	character = Character__create();
 
 	glutMainLoop();
