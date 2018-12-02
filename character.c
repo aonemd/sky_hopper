@@ -73,7 +73,7 @@ void _pull_down(Character *self) {
 }
 
 void _stop_horizontal_movement(Character *self) {
-	if (self->x > 2 || self->x < -2) {
+	if ((self->x >= -0.09 && self->x <= 0.09) || (self->x > 2 || self->x < -2)) {
 		self->x_velocity = 0;
 	}
 }
