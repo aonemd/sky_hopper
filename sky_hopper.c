@@ -47,6 +47,11 @@ void update() {
 		character->is_falling = true;
 	}
 
+	if (Blockade__character_intersects_brick(blockade, character)) {
+		printf("DEAD!\n");
+		/* TODO: Game me over */
+	}
+
 	glutPostRedisplay();
 }
 

@@ -26,3 +26,14 @@ void Blockade__update(Blockade *blockade) {
 		Brick__update(blockade->bricks[i]);
 	}
 }
+
+bool Blockade__character_intersects_brick(Blockade *blockade, Character *character) {
+	for (int i = 0; i < NUMBER_OF_BRICKS; i++) {
+		if ((fabs(blockade->bricks[i]->z - character->z) <= 0.07) &&
+				(fabs(blockade->bricks[i]->x - character->x) <= 0.3)) {
+			return true;
+		}
+	}
+
+	return false;
+}
