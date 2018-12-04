@@ -14,6 +14,10 @@ Coin *Coin__create(float x, float y, float z) {
 }
 
 void Coin__render(Coin *self) {
+	if (!self->visible) {
+		return;
+	}
+
 	glPushMatrix();
 
 	glColor3f(0.81, 0.71, 0.23);
@@ -30,6 +34,7 @@ void Coin__update(Coin *self) {
 	self->angle += 1;
 
 	if(self->z > 40) {
-		self->z = self->original_z - 30;
+		self->z       = self->original_z - 30;
+		self->visible = true;
 	}
 }

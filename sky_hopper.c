@@ -56,6 +56,8 @@ void update() {
 		/* TODO: Game me over */
 	}
 
+	Coinage__hide_intersecting_coins(coinage, character);
+
 	glutPostRedisplay();
 }
 
