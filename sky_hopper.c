@@ -13,6 +13,7 @@
 #include "road.h"
 #include "blockade.h"
 #include "character.h"
+#include "coinage.h"
 
 bool pause_scene = false;
 
@@ -21,6 +22,7 @@ Camera *camera;
 Road *road;
 Blockade *blockade;
 Character *character;
+Coinage *coinage;
 
 void render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -30,6 +32,7 @@ void render() {
 	Road__render(road);
 	Blockade__render(blockade);
 	Character__render(character);
+	Coinage__render(coinage);
 
 	glFlush();
 }
@@ -42,6 +45,7 @@ void update() {
 	Road__update(road);
 	Blockade__update(blockade);
 	Character__update(character);
+	Coinage__update(coinage);
 
 	if (Road__character_intersects_gap(road, character)) {
 		character->is_falling = true;
@@ -118,6 +122,7 @@ int main(int argc, char *argv[]) {
 	road      = Road__create(asphalt_texture_id);
 	blockade  = Blockade__create(brick_texture_id);
 	character = Character__create();
+	coinage   = Coinage__create();
 
 	glutMainLoop();
 
