@@ -1,5 +1,5 @@
-#ifndef _sky_h
-#define _sky_h
+#ifndef _sky_h_
+#define _sky_h_
 
 #include <stdbool.h>
 

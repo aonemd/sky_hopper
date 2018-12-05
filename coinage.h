@@ -1,5 +1,5 @@
-#ifndef _coinage_h
-#define _coinage_h
+#ifndef _coinage_h_
+#define _coinage_h_
 
 #include "stdbool.h"
 
