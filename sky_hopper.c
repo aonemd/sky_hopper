@@ -48,6 +48,7 @@ void update() {
 		return;
 	}
 
+	Camera__update(camera, character->x, character->y);
 	GameStatus__update(game_status);
 	Road__update(road);
 	Blockade__update(blockade);
@@ -97,7 +98,7 @@ void handle_keyboard(unsigned char key, int mouse_x, int mouse_y) {
 			game_status->paused = !game_status->paused;
 			break;
 		case 'v':
-			Camera__toggle_top_view(camera);
+			Camera__toggle_view_mode(camera);
 			break;
 	}
 }
