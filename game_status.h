@@ -9,6 +9,7 @@
 #include "GL/freeglut.h"
 
 typedef struct GameStatus {
+	int		level;
 	int     score;
 	clock_t start_time;
 	int     elapsed_minutes;

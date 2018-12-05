@@ -3,6 +3,7 @@
 GameStatus *GameStatus__create() {
 	GameStatus *game_status = malloc(sizeof(*game_status));
 
+	game_status->level           = 0;
 	game_status->score           = 0;
 	game_status->start_time      = clock();
 	game_status->elapsed_minutes = 0;
@@ -22,6 +23,10 @@ void GameStatus__update(GameStatus *self) {
 	double elapsed = (double)(stop - self->start_time) * 1000.0 / CLOCKS_PER_SEC;
 	self->elapsed_minutes = ((int)elapsed/1000 / 60) % 60;
 	self->elapsed_seconds = (int)elapsed/1000 % 60;
+
+	if (self->level == 0 && self->score >= 25) {
+		self->level = 1;
+	}
 }
 
 void _render_timer(int minutes, int seconds) {

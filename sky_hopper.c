@@ -17,7 +17,7 @@
 #include "character.h"
 #include "coinage.h"
 
-GLuint sky_texture_id, asphalt_texture_id, brick_texture_id;
+GLuint sky_day_texture_id, sky_night_texture_id, asphalt_texture_id, brick_texture_id;
 Camera *camera;
 GameStatus *game_status;
 Road *road;
@@ -30,7 +30,11 @@ void render() {
 
 	Camera__render(camera);
 	GameStatus__render(game_status);
-	Sky__render(sky_texture_id);
+	if (game_status->level == 0) {
+		Sky__render(sky_day_texture_id);
+	} else {
+		Sky__render(sky_night_texture_id);
+	}
 	Road__render(road);
 	Blockade__render(blockade);
 	Character__render(character);
@@ -121,9 +125,10 @@ int main(int argc, char *argv[]) {
     gluPerspective(45.0f, 1000.0f/1000.0f, 0.1f, 800.0f);
 
 	// load textures
-	sky_texture_id     = TextureLoader__load_bmp("assets/sky_day_1.bmp", false);
-	asphalt_texture_id = TextureLoader__load_bmp("assets/asphalt.bmp", true);
-	brick_texture_id   = TextureLoader__load_bmp("assets/brick.bmp", true);
+	sky_day_texture_id   = TextureLoader__load_bmp("assets/sky_day_1.bmp", false);
+	sky_night_texture_id = TextureLoader__load_bmp("assets/sky_night_1.bmp", false);
+	asphalt_texture_id   = TextureLoader__load_bmp("assets/asphalt.bmp", true);
+	brick_texture_id     = TextureLoader__load_bmp("assets/brick.bmp", true);
 
 	camera      = Camera__create();
 	game_status = GameStatus__create();
