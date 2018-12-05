@@ -23,11 +23,14 @@ void Coinage__update(Coinage *self) {
 	}
 }
 
-void Coinage__hide_intersecting_coins(Coinage *self, Character *character) {
+bool Coinage__hide_intersecting_coins(Coinage *self, Character *character) {
 	for (int i = 0; i < NUMBER_OF_COINS; i++) {
 		if (fabs(self->coins[i]->z - character->z) <= 0.07 &&
 				(fabs(self->coins[i]->x - character->x) <= 0.068097)) {
 			self->coins[i]->visible = false;
+			return true;
 		}
 	}
+
+	return false;
 }

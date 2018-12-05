@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <math.h>
+#include <time.h>
 
 #include "GL/freeglut.h"
 #include "GL/gl.h"
@@ -15,7 +16,13 @@
 #include "character.h"
 #include "coinage.h"
 
+int score = 0;
+int elapsed_minutes = 0;
+int elapsed_seconds = 0;
+
 bool pause_scene = false;
+
+clock_t start_time;
 
 GLuint sky_texture_id, asphalt_texture_id, brick_texture_id;
 Camera *camera;
@@ -23,6 +30,38 @@ Road *road;
 Blockade *blockade;
 Character *character;
 Coinage *coinage;
+
+void Timer__render() {
+	char full_time[] = "Time: ";
+	char time_string[512];
+	sprintf(time_string, "%d:%d", elapsed_minutes, elapsed_seconds);
+	strcat(full_time, time_string);
+
+	glPushMatrix();
+	glColor3f(1.0, 1.0, 0.0);
+	glTranslatef(-6.5, 5.7, -2);
+	glScaled(0.003, 0.003, 0.003);
+	for(size_t i = 0; i < strlen(full_time); i++) {
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, full_time[i]);
+	}
+	glPopMatrix();
+}
+
+void Score__render(int score) {
+	char full_score[] = "Score: ";
+	char scoreString[512];
+	sprintf(scoreString, "%d", score);
+	strcat(full_score, scoreString);
+
+	glPushMatrix();
+	glColor3f(1.0, 1.0, 0.0);
+	glTranslatef(-4, 5.7, -2);
+	glScaled(0.003, 0.003, 0.003);
+	for(size_t i = 0; i < strlen(full_score); i++) {
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, full_score[i]);
+	}
+	glPopMatrix();
+}
 
 void render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -33,6 +72,8 @@ void render() {
 	Blockade__render(blockade);
 	Character__render(character);
 	Coinage__render(coinage);
+	Score__render(score);
+	Timer__render();
 
 	glFlush();
 }
@@ -56,7 +97,14 @@ void update() {
 		/* TODO: Game me over */
 	}
 
-	Coinage__hide_intersecting_coins(coinage, character);
+	if(Coinage__hide_intersecting_coins(coinage, character)) {
+		score++;
+	}
+
+	clock_t stop = clock();
+	double elapsed = (double)(stop - start_time) * 1000.0 / CLOCKS_PER_SEC;
+	elapsed_minutes = ((int)elapsed/1000 / 60) % 60;
+	elapsed_seconds = (int)elapsed/1000 % 60;
 
 	glutPostRedisplay();
 }
@@ -114,6 +162,8 @@ int main(int argc, char *argv[]) {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
     gluPerspective(45.0f, 1000.0f/1000.0f, 0.1f, 800.0f);
+
+	start_time = clock();
 
 	// load textures
 	sky_texture_id     = TextureLoader__load_bmp("assets/sky_day_1.bmp", false);

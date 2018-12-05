@@ -15,6 +15,6 @@ typedef struct Coinage {
 Coinage *Coinage__create();
 void Coinage__render(Coinage *self);
 void Coinage__update(Coinage *self);
-void Coinage__hide_intersecting_coins(Coinage *self, Character *character);
+bool Coinage__hide_intersecting_coins(Coinage *self, Character *character);
 
 #endif
