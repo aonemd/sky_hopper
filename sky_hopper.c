@@ -118,6 +118,24 @@ int main(int argc, char *argv[]) {
 
 	glEnable(GL_DEPTH_TEST);
 
+	// lights on
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_SMOOTH);
+	glShadeModel(GL_SMOOTH);
+
+	GLfloat ambient_pos[] = { 0.2, 0.2, 0.2, 1.0 };
+	GLfloat diffuse_pos[] = { 0.8, 0.8, 0.8, 1.0 };
+	GLfloat specular_pos[] = {1.0, 1.0, 1.0, 1.0 };
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_pos);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_pos);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, specular_pos);
+
+	GLfloat light_pos[] = { 0.5, 0.5, 0.0, 1.0 };
+	glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
+
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 
 	glMatrixMode(GL_PROJECTION);
