@@ -10,79 +10,41 @@
 
 #include "texture_loader.h"
 #include "camera.h"
+#include "game_status.h"
 #include "sky.h"
 #include "road.h"
 #include "blockade.h"
 #include "character.h"
 #include "coinage.h"
 
-int score = 0;
-int elapsed_minutes = 0;
-int elapsed_seconds = 0;
-
-bool pause_scene = false;
-
-clock_t start_time;
-
 GLuint sky_texture_id, asphalt_texture_id, brick_texture_id;
 Camera *camera;
+GameStatus *game_status;
 Road *road;
 Blockade *blockade;
 Character *character;
 Coinage *coinage;
 
-void Timer__render() {
-	char full_time[] = "Time: ";
-	char time_string[512];
-	sprintf(time_string, "%d:%d", elapsed_minutes, elapsed_seconds);
-	strcat(full_time, time_string);
-
-	glPushMatrix();
-	glColor3f(1.0, 1.0, 0.0);
-	glTranslatef(-6.5, 5.7, -2);
-	glScaled(0.003, 0.003, 0.003);
-	for(size_t i = 0; i < strlen(full_time); i++) {
-		glutStrokeCharacter(GLUT_STROKE_ROMAN, full_time[i]);
-	}
-	glPopMatrix();
-}
-
-void Score__render(int score) {
-	char full_score[] = "Score: ";
-	char scoreString[512];
-	sprintf(scoreString, "%d", score);
-	strcat(full_score, scoreString);
-
-	glPushMatrix();
-	glColor3f(1.0, 1.0, 0.0);
-	glTranslatef(-4, 5.7, -2);
-	glScaled(0.003, 0.003, 0.003);
-	for(size_t i = 0; i < strlen(full_score); i++) {
-		glutStrokeCharacter(GLUT_STROKE_ROMAN, full_score[i]);
-	}
-	glPopMatrix();
-}
-
 void render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Camera__render(camera);
+	GameStatus__render(game_status);
 	Sky__render(sky_texture_id);
 	Road__render(road);
 	Blockade__render(blockade);
 	Character__render(character);
 	Coinage__render(coinage);
-	Score__render(score);
-	Timer__render();
 
 	glFlush();
 }
 
 void update() {
-	if (pause_scene) {
+	if (game_status->paused) {
 		return;
 	}
 
+	GameStatus__update(game_status);
 	Road__update(road);
 	Blockade__update(blockade);
 	Character__update(character);
@@ -98,13 +60,8 @@ void update() {
 	}
 
 	if(Coinage__hide_intersecting_coins(coinage, character)) {
-		score++;
+		game_status->score++;
 	}
-
-	clock_t stop = clock();
-	double elapsed = (double)(stop - start_time) * 1000.0 / CLOCKS_PER_SEC;
-	elapsed_minutes = ((int)elapsed/1000 / 60) % 60;
-	elapsed_seconds = (int)elapsed/1000 % 60;
 
 	glutPostRedisplay();
 }
@@ -133,7 +90,7 @@ void handle_keyboard(unsigned char key, int mouse_x, int mouse_y) {
 			Character__move_left(character);
 			break;
 		case 'p':
-			pause_scene = !pause_scene;
+			game_status->paused = !game_status->paused;
 			break;
 		case 'v':
 			Camera__toggle_top_view(camera);
@@ -163,18 +120,17 @@ int main(int argc, char *argv[]) {
 	glLoadIdentity();
     gluPerspective(45.0f, 1000.0f/1000.0f, 0.1f, 800.0f);
 
-	start_time = clock();
-
 	// load textures
 	sky_texture_id     = TextureLoader__load_bmp("assets/sky_day_1.bmp", false);
 	asphalt_texture_id = TextureLoader__load_bmp("assets/asphalt.bmp", true);
 	brick_texture_id   = TextureLoader__load_bmp("assets/brick.bmp", true);
 
-	camera    = Camera__create();
-	road      = Road__create(asphalt_texture_id);
-	blockade  = Blockade__create(brick_texture_id);
-	character = Character__create();
-	coinage   = Coinage__create();
+	camera      = Camera__create();
+	game_status = GameStatus__create();
+	road        = Road__create(asphalt_texture_id);
+	blockade    = Blockade__create(brick_texture_id);
+	character   = Character__create();
+	coinage     = Coinage__create();
 
 	glutMainLoop();
 
