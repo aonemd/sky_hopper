@@ -85,6 +85,10 @@ void handle_keyboard(unsigned char key, int mouse_x, int mouse_y) {
 		case 27:
 		case 'q':
 			exit(0);
+		case 'r':
+			GameStatus__reset(game_status);
+			Character__reset(character);
+			break;
 		case ' ':
 			Character__jump_up(character);
 			break;

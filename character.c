@@ -56,6 +56,16 @@ void Character__move_left(Character *self) {
 	self->x_velocity = -1 * 0.1 * cos(10 * M_PI / 180.0);
 }
 
+void Character__reset(Character *self) {
+	self->x          = 0;
+	self->y          = 0;
+	self->z          = 0;
+	self->x_velocity = 0;
+	self->y_velocity = 0;
+	self->is_jumping = false;
+	self->is_falling = false;
+}
+
 void _pull_down(Character *self) {
 	if (!self->is_falling && !self->is_jumping) {
 		self->y_velocity = 0;

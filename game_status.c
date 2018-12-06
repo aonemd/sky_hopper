@@ -38,6 +38,16 @@ void GameStatus__update(GameStatus *self) {
 	}
 }
 
+void GameStatus__reset(GameStatus *self) {
+	self->level           = 0;
+	self->score           = 0;
+	self->start_time      = clock();
+	self->elapsed_minutes = 0;
+	self->elapsed_seconds = 0;
+	self->paused          = false;
+	self->is_over         = false;
+}
+
 void _render_timer(int minutes, int seconds) {
 	char full_time[] = "Time: ";
 	char time_string[512];
