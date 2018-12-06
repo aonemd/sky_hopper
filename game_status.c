@@ -9,6 +9,7 @@ GameStatus *GameStatus__create() {
 	game_status->elapsed_minutes = 0;
 	game_status->elapsed_seconds = 0;
 	game_status->paused			 = false;
+	game_status->is_over		 = false;
 
 	return game_status;
 }
@@ -16,9 +17,17 @@ GameStatus *GameStatus__create() {
 void GameStatus__render(GameStatus *self) {
 	_render_timer(self->elapsed_minutes, self->elapsed_seconds);
 	_render_score(self->score);
+
+	if (self->is_over) {
+		_render_game_over();
+	}
 }
 
 void GameStatus__update(GameStatus *self) {
+	if(self->is_over) {
+		return;
+	}
+
 	clock_t stop = clock();
 	double elapsed = (double)(stop - self->start_time) * 1000.0 / CLOCKS_PER_SEC;
 	self->elapsed_minutes = ((int)elapsed/1000 / 60) % 60;
@@ -58,5 +67,41 @@ void _render_score(int score) {
 	for(size_t i = 0; i < strlen(full_score); i++) {
 		glutStrokeCharacter(GLUT_STROKE_ROMAN, full_score[i]);
 	}
+	glPopMatrix();
+}
+
+void _render_game_over() {
+	glPushMatrix();
+	glColor3f(1.0, 1.0, 0.0);
+	glTranslatef(-3.0f, 4.0f, 0);
+	glScaled(0.008f, 0.008f, 0.008f);
+
+	char *loss_message = "You're Dead!";
+	for(size_t i = 0; i < strlen(loss_message); i++)
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, loss_message[i]);
+
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0.0f, 0.69f, 0.40);
+	glTranslated(-2.0f, 3.0f, 0);
+	glScaled(0.003f, 0.003f, 0.003f);
+
+	// TODO: Implment high score
+	char *result_message = "New High Score!";
+	for(size_t i = 0; i < strlen(result_message); i++)
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, result_message[i]);
+
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0.85f, 0.11f, 0.09f);
+	glTranslatef(-1.5f, 2.0f, 0);
+	glScaled(0.002f, 0.002f, 0.002f);
+
+	char *replay_message = "Press R to replay";
+	for(size_t i = 0; i < strlen(replay_message); i++)
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, replay_message[i]);
+
 	glPopMatrix();
 }

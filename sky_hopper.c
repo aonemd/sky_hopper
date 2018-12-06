@@ -57,14 +57,14 @@ void update() {
 
 	if (Road__character_intersects_gap(road, character)) {
 		character->is_falling = true;
+		game_status->is_over  = true;
 	}
 
 	if (Blockade__character_intersects_brick(blockade, character)) {
-		printf("DEAD!\n");
-		/* TODO: Game me over */
+		game_status->is_over = true;
 	}
 
-	if(Coinage__hide_intersecting_coins(coinage, character)) {
+	if(!game_status->is_over && Coinage__hide_intersecting_coins(coinage, character)) {
 		game_status->score++;
 	}
 

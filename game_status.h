@@ -15,6 +15,7 @@ typedef struct GameStatus {
 	int     elapsed_minutes;
 	int     elapsed_seconds;
 	bool    paused;
+	bool	is_over;
 } GameStatus;
 
 GameStatus *GameStatus__create();
@@ -22,5 +23,6 @@ void GameStatus__render(GameStatus *self);
 void GameStatus__update(GameStatus *self);
 void _render_timer(int minutes, int seconds);
 void _render_score(int score);
+void _render_game_over();
 
 #endif
