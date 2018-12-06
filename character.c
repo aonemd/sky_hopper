@@ -49,10 +49,18 @@ void Character__jump_up(Character *self) {
 }
 
 void Character__move_right(Character *self) {
+	if (self->x >= 2) {
+		return;
+	}
+
 	self->x_velocity = 0.1 * cos(10 * M_PI / 180.0);
 }
 
 void Character__move_left(Character *self) {
+	if (self->x <= -2) {
+		return;
+	}
+
 	self->x_velocity = -1 * 0.1 * cos(10 * M_PI / 180.0);
 }
 
