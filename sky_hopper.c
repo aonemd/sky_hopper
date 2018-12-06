@@ -107,6 +107,26 @@ void handle_keyboard(unsigned char key, int mouse_x, int mouse_y) {
 	}
 }
 
+void handle_mouse_click(int button, int state, int x, int y) {
+	(void) state;
+	(void) x;
+	(void) y;
+
+    if (button == GLUT_LEFT_BUTTON) {
+		Character__jump_up(character);
+    }
+}
+
+void handle_mouse_motion(int x, int y) {
+	(void) y;
+
+	if (x < 300) {
+		Character__move_left(character);
+	} else if (x > 700) {
+		Character__move_right(character);
+	}
+}
+
 int main(int argc, char *argv[]) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
@@ -120,6 +140,8 @@ int main(int argc, char *argv[]) {
 	glutIdleFunc(update);
 	glutTimerFunc(0, handle_timer, 0);
 	glutKeyboardFunc(handle_keyboard);
+	glutMouseFunc(handle_mouse_click);
+    glutPassiveMotionFunc(handle_mouse_motion);
 
 	glEnable(GL_DEPTH_TEST);
 
