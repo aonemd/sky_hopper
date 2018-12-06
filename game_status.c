@@ -8,8 +8,9 @@ GameStatus *GameStatus__create() {
 	game_status->start_time      = clock();
 	game_status->elapsed_minutes = 0;
 	game_status->elapsed_seconds = 0;
-	game_status->paused			 = false;
-	game_status->is_over		 = false;
+	game_status->paused          = false;
+	game_status->is_over         = false;
+	game_status->highest_score   = _read_highest_score();
 
 	return game_status;
 }
@@ -19,7 +20,10 @@ void GameStatus__render(GameStatus *self) {
 	_render_score(self->score);
 
 	if (self->is_over) {
-		_render_game_over();
+		_render_game_over(self->score, self->highest_score);
+		if (self->score > self->highest_score) {
+			_update_highest_score(self->score);
+		}
 	}
 }
 
@@ -46,6 +50,7 @@ void GameStatus__reset(GameStatus *self) {
 	self->elapsed_seconds = 0;
 	self->paused          = false;
 	self->is_over         = false;
+	self->highest_score   = _read_highest_score();
 }
 
 void _render_timer(int minutes, int seconds) {
@@ -80,7 +85,7 @@ void _render_score(int score) {
 	glPopMatrix();
 }
 
-void _render_game_over() {
+void _render_game_over(int score, int highest_score) {
 	glPushMatrix();
 	glColor3f(1.0, 1.0, 0.0);
 	glTranslatef(-3.0f, 4.0f, 0);
@@ -97,8 +102,12 @@ void _render_game_over() {
 	glTranslated(-2.0f, 3.0f, 0);
 	glScaled(0.003f, 0.003f, 0.003f);
 
-	// TODO: Implment high score
-	char *result_message = "New High Score!";
+	char *result_message;
+	if (score > highest_score) {
+		result_message = "New High Score!";
+	} else {
+		result_message = "Try Better Next Time";
+	}
 	for(size_t i = 0; i < strlen(result_message); i++)
 		glutStrokeCharacter(GLUT_STROKE_ROMAN, result_message[i]);
 
@@ -114,4 +123,31 @@ void _render_game_over() {
 		glutStrokeCharacter(GLUT_STROKE_ROMAN, replay_message[i]);
 
 	glPopMatrix();
+}
+
+int _read_highest_score() {
+	int highest_score = 0;
+	FILE *file;
+
+	file = fopen("score.txt", "r");
+	if (file == NULL) {
+		file = fopen("score.txt", "w");
+		fprintf(file, "%d", highest_score);
+	}
+
+	fscanf(file, "%d", &highest_score);
+
+	fclose(file);
+
+	return highest_score;
+}
+
+void _update_highest_score(int highest_score) {
+	FILE *file;
+
+	file = fopen("score.txt", "w+");
+
+	fprintf(file, "%d", highest_score);
+
+	fclose(file);
 }

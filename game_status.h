@@ -11,6 +11,7 @@
 typedef struct GameStatus {
 	int		level;
 	int     score;
+	int		highest_score;
 	clock_t start_time;
 	int     elapsed_minutes;
 	int     elapsed_seconds;
@@ -24,6 +25,8 @@ void GameStatus__update(GameStatus *self);
 void GameStatus__reset();
 void _render_timer(int minutes, int seconds);
 void _render_score(int score);
-void _render_game_over();
+void _render_game_over(int score, int highest_score);
+int _read_highest_score();
+void _update_highest_score(int highest_score);
 
 #endif
