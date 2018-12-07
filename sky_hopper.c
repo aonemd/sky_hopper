@@ -17,7 +17,7 @@
 #include "character.h"
 #include "coinage.h"
 
-GLuint sky_day_texture_id, sky_night_texture_id, asphalt_texture_id, brick_texture_id;
+GLuint sky_day_texture_id, sky_night_texture_id, asphalt_texture_id, steel_texture_id, brick_texture_id;
 Camera *camera;
 GameStatus *game_status;
 Road *road;
@@ -32,10 +32,11 @@ void render() {
 	GameStatus__render(game_status);
 	if (game_status->level == 0) {
 		Sky__render(sky_day_texture_id);
+		Road__render(road, asphalt_texture_id);
 	} else {
 		Sky__render(sky_night_texture_id);
+		Road__render(road, steel_texture_id);
 	}
-	Road__render(road);
 	Blockade__render(blockade);
 	Character__render(character);
 	Coinage__render(coinage);
@@ -173,11 +174,12 @@ int main(int argc, char *argv[]) {
 	sky_day_texture_id   = TextureLoader__load_bmp("assets/sky_day_1.bmp", false);
 	sky_night_texture_id = TextureLoader__load_bmp("assets/sky_night_1.bmp", false);
 	asphalt_texture_id   = TextureLoader__load_bmp("assets/asphalt.bmp", true);
+	steel_texture_id     = TextureLoader__load_bmp("assets/steel.bmp", true);
 	brick_texture_id     = TextureLoader__load_bmp("assets/brick.bmp", true);
 
 	camera      = Camera__create();
 	game_status = GameStatus__create();
-	road        = Road__create(asphalt_texture_id);
+	road        = Road__create();
 	blockade    = Blockade__create(brick_texture_id);
 	character   = Character__create();
 	coinage     = Coinage__create();

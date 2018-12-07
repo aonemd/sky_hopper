@@ -1,18 +1,17 @@
 #include "road_block.h"
 
-RoadBlock *RoadBlock__create(float y, float z, GLuint texture_id) {
+RoadBlock *RoadBlock__create(float y, float z) {
 	RoadBlock *road_block = malloc(sizeof(*road_block));
 
 	road_block->x          = 0;
 	road_block->y          = y;
 	road_block->z          = z ;
 	road_block->original_z = z;
-	road_block->texture_id = texture_id;
 
 	return road_block;
 }
 
-void RoadBlock__render(RoadBlock *self) {
+void RoadBlock__render(RoadBlock *self, GLuint texture_id) {
 	glPushMatrix();
 	glTranslated(self->x, self->y, self->z);
 
@@ -21,7 +20,7 @@ void RoadBlock__render(RoadBlock *self) {
 
 	glColor3f(0, 0, 1);
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, self->texture_id);
+	glBindTexture(GL_TEXTURE_2D, texture_id);
 
 	glBegin(GL_QUADS);
 	// top

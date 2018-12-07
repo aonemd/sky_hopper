@@ -13,11 +13,10 @@
 typedef struct Road {
 	RoadBlock *blocks[NUMBER_OF_ROADS];
 	int       farthest_road_index;
-	GLuint    texture_id;
 } Road;
 
-Road *Road__create(GLuint texture_id);
-void Road__render(Road *road);
+Road *Road__create();
+void Road__render(Road *road, GLuint texture_id);
 void Road__update(Road *road);
 bool Road__character_intersects_gap(Road *road, Character *character);
 

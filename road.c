@@ -1,21 +1,20 @@
 #include "road.h"
 
-Road *Road__create(GLuint texture_id) {
+Road *Road__create() {
 	Road *road = malloc(sizeof(*road));
 
 	road->farthest_road_index = 0;
-	road->texture_id          = texture_id;
 
 	for (int i = 0; i < NUMBER_OF_ROADS; i++) {
-		road->blocks[i + 0] = RoadBlock__create(0 - 2, ((i + 0) * -1 * BLOCK_LENGTH) - (ROAD_GAP_LENGTH * i), road->texture_id);
+		road->blocks[i + 0] = RoadBlock__create(0 - 2, ((i + 0) * -1 * BLOCK_LENGTH) - (ROAD_GAP_LENGTH * i));
 	}
 
 	return road;
 }
 
-void Road__render(Road *road) {
+void Road__render(Road *road, GLuint texture_id) {
 	for (int i = 0; i < NUMBER_OF_ROADS; i++) {
-		RoadBlock__render(road->blocks[i]);
+		RoadBlock__render(road->blocks[i], texture_id);
 	}
 }
 
