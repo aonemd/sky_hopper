@@ -15,8 +15,8 @@ typedef struct Blockade {
 } Blockade;
 
 Blockade *Blockade__create(GLuint texture_id);
-void Blockade__render(Blockade *blockade);
-void Blockade__update(Blockade *blockade);
-bool Blockade__character_intersects_brick(Blockade *blockade, Character *character);
+void Blockade__render(Blockade *self);
+void Blockade__update(Blockade *self);
+bool Blockade__character_intersects_brick(Blockade *self, Character *character);
 
 #endif

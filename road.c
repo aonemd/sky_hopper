@@ -12,37 +12,37 @@ Road *Road__create() {
 	return road;
 }
 
-void Road__render(Road *road, GLuint texture_id) {
+void Road__render(Road *self, GLuint texture_id) {
 	for (int i = 0; i < NUMBER_OF_ROADS; i++) {
-		RoadBlock__render(road->blocks[i], texture_id);
+		RoadBlock__render(self->blocks[i], texture_id);
 	}
 }
 
-void Road__update(Road *road) {
+void Road__update(Road *self) {
 	for (int i = 0; i < NUMBER_OF_ROADS; i++) {
-		RoadBlock__update(road->blocks[i]);
+		RoadBlock__update(self->blocks[i]);
 	}
 
-	int farthest_road_index = road->farthest_road_index;
-	if(road->blocks[farthest_road_index]->z >= (NUMBER_OF_ROADS / 2.0) * BLOCK_LENGTH) {
-		int previous_road_index = (farthest_road_index + NUMBER_OF_ROADS - 1) % NUMBER_OF_ROADS;
+	int farthest_road_index = self->farthest_road_index;
+	if(self->blocks[farthest_road_index]->z >= (NUMBER_OF_ROADS / 2.0) * BLOCK_LENGTH) {
+		int previous_self_index = (farthest_road_index + NUMBER_OF_ROADS - 1) % NUMBER_OF_ROADS;
 
-		road->blocks[farthest_road_index]->z = road->blocks[previous_road_index]->z - BLOCK_LENGTH - ROAD_GAP_LENGTH;
-		road->farthest_road_index            = (farthest_road_index + 1) % NUMBER_OF_ROADS;
+		self->blocks[farthest_road_index]->z = self->blocks[previous_self_index]->z - BLOCK_LENGTH - ROAD_GAP_LENGTH;
+		self->farthest_road_index            = (farthest_road_index + 1) % NUMBER_OF_ROADS;
 	}
 }
 
-bool Road__character_intersects_gap(Road *road, Character *character) {
+bool Road__character_intersects_gap(Road *self, Character *character) {
 	int minimum_z_index = 0;
 	for (int i = 0; i < NUMBER_OF_ROADS; i++) {
-		if (road->blocks[i]->z >= 0) {
-			if (road->blocks[i]->z < road->blocks[minimum_z_index]->z) {
+		if (self->blocks[i]->z >= 0) {
+			if (self->blocks[i]->z < self->blocks[minimum_z_index]->z) {
 				minimum_z_index = i;
 			}
 		}
 	}
 
-	if ((road->blocks[minimum_z_index]->z > 15.7f && road->blocks[minimum_z_index]->z <= 18) && character->y <= 0) {
+	if ((self->blocks[minimum_z_index]->z > 15.7f && self->blocks[minimum_z_index]->z <= 18) && character->y <= 0) {
 		return true;
 	}
 

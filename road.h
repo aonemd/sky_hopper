@@ -16,8 +16,8 @@ typedef struct Road {
 } Road;
 
 Road *Road__create();
-void Road__render(Road *road, GLuint texture_id);
-void Road__update(Road *road);
-bool Road__character_intersects_gap(Road *road, Character *character);
+void Road__render(Road *self, GLuint texture_id);
+void Road__update(Road *self);
+bool Road__character_intersects_gap(Road *self, Character *character);
 
 #endif
