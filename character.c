@@ -42,8 +42,8 @@ void Character__update(Character *self) {
 
 void Character__jump_up(Character *self) {
 	if (!self->is_jumping) {
-		self->y_velocity = 0.04f;
-		self->z_velocity = 0.04f;
+		self->y_velocity = 0.06f;
+		self->z_velocity = 0.06f;
 		self->is_jumping = true;
 	}
 }

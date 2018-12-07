@@ -30,7 +30,7 @@ void Coin__render(Coin *self) {
 }
 
 void Coin__update(Coin *self) {
-	self->z     += 0.07;
+	self->z     += 0.09;
 	self->angle += 1;
 
 	if(self->z > 40) {

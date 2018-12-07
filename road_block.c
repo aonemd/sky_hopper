@@ -77,5 +77,5 @@ void RoadBlock__render(RoadBlock *self, GLuint texture_id) {
 }
 
 void RoadBlock__update(RoadBlock *self) {
-	self->z += 0.07;
+	self->z += 0.09;
 }
