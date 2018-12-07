@@ -86,7 +86,7 @@ void Brick__render(Brick *self) {
 void Brick__update(Brick *self) {
 	self->z += 0.09;
 
-	if(self->z > 40) {
-		self->z = self->original_z;
+	if(self->z > 100) {
+		self->z = self->original_z - 10;
 	}
 }
