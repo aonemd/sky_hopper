@@ -36,13 +36,14 @@ bool Road__character_intersects_gap(Road *self, Character *character) {
 	int minimum_z_index = 0;
 	for (int i = 0; i < NUMBER_OF_ROADS; i++) {
 		if (self->blocks[i]->z >= 0) {
-			if (self->blocks[i]->z < self->blocks[minimum_z_index]->z) {
+			if (fabs(self->blocks[i]->z) < fabs(self->blocks[minimum_z_index]->z)) {
 				minimum_z_index = i;
 			}
 		}
 	}
 
-	if ((self->blocks[minimum_z_index]->z > 15.7f && self->blocks[minimum_z_index]->z <= 18) && character->y <= 0) {
+	if ((self->blocks[minimum_z_index]->z > 15.7f && self->blocks[minimum_z_index]->z <= 18)
+			&& character->y <= 0) {
 		return true;
 	}
 
