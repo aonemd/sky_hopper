@@ -25,9 +25,9 @@ void Road__update(Road *self) {
 
 	int farthest_road_index = self->farthest_road_index;
 	if(self->blocks[farthest_road_index]->z >= (NUMBER_OF_ROADS / 2.0) * BLOCK_LENGTH) {
-		int previous_self_index = (farthest_road_index + NUMBER_OF_ROADS - 1) % NUMBER_OF_ROADS;
+		int previous_road_index = (farthest_road_index + NUMBER_OF_ROADS - 1) % NUMBER_OF_ROADS;
 
-		self->blocks[farthest_road_index]->z = self->blocks[previous_self_index]->z - BLOCK_LENGTH - ROAD_GAP_LENGTH;
+		self->blocks[farthest_road_index]->z = self->blocks[previous_road_index]->z - BLOCK_LENGTH - ROAD_GAP_LENGTH;
 		self->farthest_road_index            = (farthest_road_index + 1) % NUMBER_OF_ROADS;
 	}
 }
