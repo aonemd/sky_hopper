@@ -99,14 +99,18 @@ void _render_game_over(int score, int highest_score) {
 
 	glPushMatrix();
 	glColor3f(0.0f, 0.69f, 0.40);
-	glTranslated(-2.0f, 3.0f, 0);
+	glTranslated(-3.5f, 3.0f, 0);
 	glScaled(0.003f, 0.003f, 0.003f);
 
-	char *result_message;
+	char result_message[1024];
 	if (score > highest_score) {
-		result_message = "New High Score!";
+		strncpy(result_message, "New High Score! Congratulations", sizeof(result_message) - 1);
 	} else {
-		result_message = "Try Better Next Time";
+		strncpy(result_message, "Try Better Next Time! ", sizeof(result_message) - 1);
+
+		char high_score_msg[20];
+		sprintf(high_score_msg, "High Score: %d", highest_score);
+		strcat(result_message, high_score_msg);
 	}
 	for(size_t i = 0; i < strlen(result_message); i++)
 		glutStrokeCharacter(GLUT_STROKE_ROMAN, result_message[i]);
