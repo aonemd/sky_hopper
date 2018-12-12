@@ -33,7 +33,7 @@ void Camera__update(Camera *self, int x, int y) {
 }
 
 void Camera__toggle_view_mode(Camera *self) {
-	self->view_mode = (self->view_mode + 1) % 3;
+	self->view_mode = (self->view_mode + 1) % 4;
 
 	switch(self->view_mode) {
 		case 0:
@@ -41,13 +41,29 @@ void Camera__toggle_view_mode(Camera *self) {
 			self->y		= 0;
 			self->z		= 0;
 			self->angle = 0;
+			self->rotate_x = true;
+			self->rotate_y = false;
+			self->rotate_z = false;
 			break;
 		case 1:
 			self->angle = 70;
+			self->rotate_x = true;
+			self->rotate_y = false;
+			self->rotate_z = false;
 			break;
 		case 2:
 			self->angle = 0;
 			self->z     = 15;
+			self->rotate_x = true;
+			self->rotate_y = false;
+			self->rotate_z = false;
+			break;
+		case 3:
+			self->z        = 0;
+			self->angle    = 180;
+			self->rotate_x = false;
+			self->rotate_y = true;
+			self->rotate_z = false;
 			break;
 	}
 }
