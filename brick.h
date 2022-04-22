@@ -1,7 +1,12 @@
 #ifndef _brick_h_
 #define _brick_h_
 
+#ifdef OS_WIN
+#include <glut.h>
+#else
 #include "GL/freeglut.h"
+#include "GL/gl.h"
+#endif
 
 typedef struct Brick {
 	float x;

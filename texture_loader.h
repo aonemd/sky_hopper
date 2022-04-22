@@ -2,7 +2,13 @@
 #define _texture_loader_h_
 
 #include <stdio.h>
+
+#ifdef OS_WIN
+#include <glut.h>
+#else
 #include "GL/freeglut.h"
+#include "GL/gl.h"
+#endif
 
 typedef unsigned char Byte;
 

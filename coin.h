@@ -3,7 +3,12 @@
 
 #include "stdbool.h"
 
+#ifdef OS_WIN
+#include <glut.h>
+#else
 #include "GL/freeglut.h"
+#include "GL/gl.h"
+#endif
 
 typedef struct Coin {
 	float x;

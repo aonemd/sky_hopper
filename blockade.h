@@ -3,7 +3,13 @@
 
 #include <stdbool.h>
 
+#ifdef OS_WIN
+#include <glut.h>
+#else
 #include "GL/freeglut.h"
+#include "GL/gl.h"
+#endif
+
 #include "brick.h"
 #include "character.h"
 

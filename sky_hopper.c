@@ -5,8 +5,12 @@
 #include <math.h>
 #include <time.h>
 
+#ifdef OS_WIN
+#include <glut.h>
+#else
 #include "GL/freeglut.h"
 #include "GL/gl.h"
+#endif
 
 #include "texture_loader.h"
 #include "camera.h"
