@@ -1,7 +1,7 @@
 #include "camera.h"
 
 Camera *Camera__create() {
-	Camera *camera = malloc(sizeof(*camera));
+	Camera *camera = (Camera*) malloc(sizeof(*camera));
 
 	camera->x		 = 0;
 	camera->x		 = 0;

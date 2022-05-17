@@ -1,7 +1,7 @@
 #include "brick.h"
 
 Brick *Brick__create(float x, float y, float z, GLuint texture_id) {
-	Brick *brick = malloc(sizeof(*brick));
+	Brick *brick = (Brick*) malloc(sizeof(*brick));
 
 	brick->x          = x;
 	brick->y          = y;

@@ -1,7 +1,7 @@
 #include "game_status.h"
 
 GameStatus *GameStatus__create() {
-	GameStatus *game_status = malloc(sizeof(*game_status));
+	GameStatus *game_status = (GameStatus*) malloc(sizeof(*game_status));
 
 	game_status->level           = 0;
 	game_status->score           = 0;

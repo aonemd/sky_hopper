@@ -1,7 +1,7 @@
 #include "coinage.h"
 
 Coinage *Coinage__create() {
-	Coinage *coinage = malloc(sizeof(*coinage));
+	Coinage *coinage = (Coinage*) malloc(sizeof(*coinage));
 
 	float possible_x_positions[2] = { -2, 2 };
 	for (int i = 0; i < NUMBER_OF_COINS; i++) {

@@ -1,7 +1,7 @@
 #include "road.h"
 
 Road *Road__create() {
-	Road *road = malloc(sizeof(*road));
+	Road *road = (Road*) malloc(sizeof(*road));
 
 	road->farthest_road_index = 0;
 

@@ -1,7 +1,7 @@
 #include "coin.h"
 
 Coin *Coin__create(float x, float y, float z) {
-	Coin *coin = malloc(sizeof(*coin));
+	Coin *coin = (Coin*) malloc(sizeof(*coin));
 
 	coin->x          = x;
 	coin->y          = y;

@@ -1,7 +1,7 @@
 #include "blockade.h"
 
 Blockade *Blockade__create(GLuint texture_id) {
-	Blockade *blockade = malloc(sizeof(*blockade));
+	Blockade *blockade = (Blockade*) malloc(sizeof(*blockade));
 
 	blockade->texture_id = texture_id;
 

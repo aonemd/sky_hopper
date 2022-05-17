@@ -1,7 +1,7 @@
 #include "character.h"
 
 Character *Character__create() {
-	Character *character = malloc(sizeof(*character));
+	Character *character = (Character*) malloc(sizeof(*character));
 
 	character->x          = 0;
 	character->y          = 0;

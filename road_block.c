@@ -1,7 +1,7 @@
 #include "road_block.h"
 
 RoadBlock *RoadBlock__create(float y, float z) {
-	RoadBlock *road_block = malloc(sizeof(*road_block));
+	RoadBlock *road_block = (RoadBlock*) malloc(sizeof(*road_block));
 
 	road_block->x          = 0;
 	road_block->y          = y;
