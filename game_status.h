@@ -27,7 +27,7 @@ typedef struct GameStatus {
 GameStatus *GameStatus__create();
 void GameStatus__render(GameStatus *self);
 void GameStatus__update(GameStatus *self);
-void GameStatus__reset();
+void GameStatus__reset(GameStatus *self);
 void _render_timer(int minutes, int seconds);
 void _render_score(int score);
 void _render_game_over(int score, int highest_score);
